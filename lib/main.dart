@@ -10,13 +10,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
         home: Scaffold(
-            body: Center(
-                child: Column(children: [
-      Expanded(child: TypingArea()),
-      Expanded(child: KeysArea())
-    ]))));
+            body: Container(
+              color: const Color.fromARGB(255, 49, 49, 49),
+              child: const Center(
+                  child: Column(children: [
+                    Expanded(child: TypingArea()),
+                    Expanded(child: KeysArea())
+                  ])),
+            )));
   }
 }
 
@@ -37,7 +40,7 @@ class KeysArea extends StatelessWidget {
                 ...List.generate(5, (j) {
                   return Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(2.0),
                       child: KeyButton(
                         callback: () {},
                         child: Text("${(i * 5) + j + 1}"),
@@ -60,7 +63,7 @@ class TypingArea extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      color: Colors.red,
+      // color: Colors.red,
     );
     throw UnimplementedError();
   }

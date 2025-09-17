@@ -15,6 +15,7 @@ class _KeyButtonState extends State<KeyButton> {
     var stockButton = FilledButton(
         onPressed: () {},
         style: FilledButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 73, 73, 73),
             padding: const EdgeInsets.all(2),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
