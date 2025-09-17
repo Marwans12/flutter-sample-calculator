@@ -10,52 +10,44 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
         home: Scaffold(
-      body: Center(
-          child: Column(
-            children: [
-              // Expanded(child: Container(color: Colors.lightBlue[50],child: const Text("Beeg container"),)),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 5,
-                  children: [...List.generate(20, (i) {
-                    return Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: KeyButton(child: Text("$i"), callback: () {}),
-                    );
-                  })],
-                            // Column(
-                            //   children: [
-                            //     Expanded(child: TypingArea()),
-                            //     Expanded(child: KeysAera())
-                            //   ],
-                            // ),
-                            ),
-              )],
-          ),
-    )));
+            body: Center(
+                child: Column(children: [
+      Expanded(child: TypingArea()),
+      Expanded(child: KeysArea())
+    ]))));
   }
 }
 
-class KeysAera extends StatelessWidget {
-  const KeysAera({super.key});
+class KeysArea extends StatelessWidget {
+  const KeysArea({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return GridView.count(
-      crossAxisCount: 5,
+    return Column(
       children: [
-        ...List.generate(20, (i) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: KeyButton(child: const Text("data"), callback: () {}),
+        ...List.generate(4, (i) {
+          return Expanded(
+            child: Row(
+              children: [
+                ...List.generate(5, (j) {
+                  return Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: KeyButton(
+                          child: Text("${(i * 5) + j + 1}"), callback: () {}),
+                    ),
+                  );
+                })
+              ],
+            ),
           );
         })
       ],
     );
-    throw UnimplementedError();
   }
 }
 
