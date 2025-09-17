@@ -32,13 +32,16 @@ class KeysArea extends StatelessWidget {
         ...List.generate(4, (i) {
           return Expanded(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ...List.generate(5, (j) {
                   return Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(3.0),
                       child: KeyButton(
-                          child: Text("${(i * 5) + j + 1}"), callback: () {}),
+                        callback: () {},
+                        child: Text("${(i * 5) + j + 1}"),
+                      ),
                     ),
                   );
                 })

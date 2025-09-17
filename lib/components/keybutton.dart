@@ -19,18 +19,6 @@ class _KeyButtonState extends State<KeyButton> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
         child: Center(child: widget.child));
-    var scratchButton = Card(
-      color: const Color(0x00000000),
-      shadowColor: const Color(0x00000000),
-      child: InkWell(
-        radius: 5,
-        onTap: widget.callback,
-        child: SizedBox.square(
-          dimension: 20,
-          child: Center(child: widget.child),
-        ),
-      ),
-    );
     return stockButton;
   }
 }
