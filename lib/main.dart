@@ -11,6 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
         home: Scaffold(
             body: Container(
               color: const Color.fromARGB(255, 49, 49, 49),
@@ -61,10 +62,27 @@ class TypingArea extends StatelessWidget {
   const TypingArea({super.key});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-      // color: Colors.red,
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextField(
+          decoration: null,
+        ),
+        SizedBox(height: 8,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: Text(
+                "24",
+                textScaler: TextScaler.linear(1.5),
+                textAlign: TextAlign.end,
+              ),
+            ),
+          ],
+        )
+      ],
     );
-    throw UnimplementedError();
   }
 }
