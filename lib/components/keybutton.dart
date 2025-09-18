@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 
-class KeyButton extends StatefulWidget {
+class KeyButton extends StatelessWidget {
   const KeyButton({super.key, required this.child, required this.callback});
   final Widget child;
   final void Function()? callback;
 
-  @override
-  State<KeyButton> createState() => _KeyButtonState();
-}
-
-class _KeyButtonState extends State<KeyButton> {
   @override
   Widget build(BuildContext context) {
     var stockButton = FilledButton(
@@ -19,7 +14,7 @@ class _KeyButtonState extends State<KeyButton> {
             padding: const EdgeInsets.all(2),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-        child: Center(child: widget.child));
+        child: Center(child: child));
     return stockButton;
   }
 }
