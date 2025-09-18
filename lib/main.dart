@@ -1,5 +1,6 @@
+import 'package:everything_calculator/Structure/keys_area.dart';
+import 'package:everything_calculator/Structure/typing_area.dart';
 import 'package:flutter/material.dart';
-import 'components/keybutton.dart';
 
 void main() {
   runApp(const MainApp());
@@ -21,68 +22,5 @@ class MainApp extends StatelessWidget {
                     Expanded(child: KeysArea())
                   ])),
             )));
-  }
-}
-
-class KeysArea extends StatelessWidget {
-  const KeysArea({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ...List.generate(4, (i) {
-          return Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ...List.generate(5, (j) {
-                  return Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: KeyButton(
-                        callback: () {},
-                        child: Text("${(i * 5) + j + 1}"),
-                      ),
-                    ),
-                  );
-                })
-              ],
-            ),
-          );
-        })
-      ],
-    );
-  }
-}
-
-class TypingArea extends StatelessWidget {
-  const TypingArea({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        TextField(
-          decoration: null,
-        ),
-        SizedBox(height: 8,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: Text(
-                "24",
-                textScaler: TextScaler.linear(1.5),
-                textAlign: TextAlign.end,
-              ),
-            ),
-          ],
-        )
-      ],
-    );
   }
 }
