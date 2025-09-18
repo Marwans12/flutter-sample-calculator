@@ -11,6 +11,7 @@ class KeyButton extends StatelessWidget {
         onPressed: () {},
         style: FilledButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 73, 73, 73),
+            foregroundColor: Colors.white,
             padding: const EdgeInsets.all(2),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
