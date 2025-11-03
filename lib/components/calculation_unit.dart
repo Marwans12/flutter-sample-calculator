@@ -114,6 +114,7 @@ class _CalculationUnitState extends State<CalculationUnit> {
               focusNode: widget.focusNode,
               decoration: null,
               controller: widget.controller,
+              keyboardType: TextInputType.none,
             ),
             result
           ],
