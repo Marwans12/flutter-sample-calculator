@@ -55,6 +55,12 @@ class _CalculationUnitState extends State<CalculationUnit> {
           case LogicalKeyboardKey.backspace:
             provider.removeInput();
             return KeyEventResult.handled;
+          case LogicalKeyboardKey.arrowUp:
+            provider.moveFocus("up");
+            return KeyEventResult.handled;
+          case LogicalKeyboardKey.arrowDown:
+            provider.moveFocus("down");
+            return KeyEventResult.handled;
         }
       }
       return KeyEventResult.ignored;

@@ -310,6 +310,61 @@ class KeysArea extends StatelessWidget {
             ],
           ),
         ),
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: KeyButton(
+                    callback: (keyValue) {
+                      data.moveFocus(keyValue);
+                    },
+                    keyValue: "up",
+                    child: const Text("↑"),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: KeyButton(
+                    callback: (keyValue) {
+                      data.moveFocus(keyValue);
+                    },
+                    keyValue: "down",
+                    child: const Text("↓"),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: KeyButton(
+                    callback: (keyValue) {
+                      data.moveCursor(keyValue);
+                    },
+                    keyValue: "left",
+                    child: const Text("←"),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: KeyButton(
+                    callback: (keyValue) {
+                      data.moveCursor(keyValue);
+                    },
+                    keyValue: "right",
+                    child: const Text("→"),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

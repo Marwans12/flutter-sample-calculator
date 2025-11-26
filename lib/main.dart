@@ -130,6 +130,49 @@ class Calculations extends ChangeNotifier {
     focusNodes.values.map((focusNode) => focusNode.dispose());
     addCalculationUnit();
   }
+
+  void moveCursor(String direction) {
+    var controller = lastFocusedUnit!.controller;
+    if (lastSelectionBase > lastSelectionExtent) {
+      var temp = lastSelectionBase;
+      lastSelectionBase = lastSelectionExtent;
+      lastSelectionExtent = temp;
+    }
+
+    if (direction == 'left') {
+      if (controller.selection.isCollapsed && lastSelectionBase != 0) {
+        controller.selection =
+            TextSelection.collapsed(offset: lastSelectionBase - 1);
+      } else {
+        controller.selection =
+            TextSelection.collapsed(offset: lastSelectionBase);
+      }
+    }
+    if (direction == 'right') {
+      if (controller.selection.isCollapsed &&
+          lastSelectionExtent != controller.text.length) {
+        controller.selection =
+            TextSelection.collapsed(offset: lastSelectionExtent + 1);
+      } else {
+        controller.selection =
+            TextSelection.collapsed(offset: lastSelectionExtent);
+      }
+    }
+    focusNodes[lastFocusedUnit]!.requestFocus();
+  }
+
+  void moveFocus(String direction) {
+    var index = calculationHistory.indexOf(lastFocusedUnit!);
+    if (direction == 'up' && index != 0) {
+      focusNodes[calculationHistory[index - 1]]!.requestFocus();
+    }
+    else if (direction == 'down' && index != calculationHistory.length - 1) {
+      focusNodes[calculationHistory[index + 1]]!.requestFocus();
+    } else {
+      focusNodes[lastFocusedUnit]!.requestFocus();
+    }
+
+  }
 }
 
 class TypingArea extends StatefulWidget {
@@ -151,11 +194,14 @@ class _TypingAreaState extends State<TypingArea> {
   Widget build(BuildContext context) {
     var provider = context.watch<Calculations>();
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ...provider.calculationHistory,
-      ],
+    return SingleChildScrollView(
+      reverse: true,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ...provider.calculationHistory,
+        ],
+      ),
     );
   }
 }
