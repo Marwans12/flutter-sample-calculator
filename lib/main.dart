@@ -59,7 +59,7 @@ class Calculations extends ChangeNotifier {
       calculationHistory.add(calculationUnit);
     } else {
       calculationHistory.insert(
-          calculationHistory.indexOf(_lastFocusedUnit!) + 1, calculationUnit);
+          calculationHistory.indexOf(lastFocusedUnit!) + 1, calculationUnit);
     }
     notifyListeners();
   }
@@ -86,7 +86,7 @@ class Calculations extends ChangeNotifier {
   }
 
   void enterInput(String input) {
-    var controller = _lastFocusedUnit!.controller;
+    var controller = lastFocusedUnit!.controller;
     if (lastSelectionBase > lastSelectionExtent) {
       var temp = lastSelectionBase;
       lastSelectionBase = lastSelectionExtent;
@@ -98,10 +98,11 @@ class Calculations extends ChangeNotifier {
             selection: TextSelection.collapsed(offset: lastSelectionBase))
         .replaced(TextRange(start: lastSelectionBase, end: lastSelectionExtent),
             input);
+    focusNodes[lastFocusedUnit]!.requestFocus();
   }
 
   void removeInput() {
-    var controller = _lastFocusedUnit!.controller;
+    var controller = lastFocusedUnit!.controller;
     if (controller.selection.isCollapsed && lastSelectionBase != 0) {
       controller.value = TextEditingValue(
               text: controller.text,
@@ -109,16 +110,18 @@ class Calculations extends ChangeNotifier {
           .replaced(
               TextRange(start: lastSelectionBase - 1, end: lastSelectionBase),
               "");
+      focusNodes[lastFocusedUnit]!.requestFocus();
     } else {
       controller.text.trim() == ""
-          ? removeCalculationUnit(_lastFocusedUnit!)
+          ? removeCalculationUnit(lastFocusedUnit!)
           : enterInput("");
     }
   }
 
   void clearInput() {
-    _lastFocusedUnit!.controller.value = const TextEditingValue(
+    lastFocusedUnit!.controller.value = const TextEditingValue(
         text: "", selection: TextSelection.collapsed(offset: 0));
+    focusNodes[lastFocusedUnit]!.requestFocus();
   }
 
   void clearHistory() {
