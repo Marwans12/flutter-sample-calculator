@@ -1,4 +1,4 @@
-import 'package:everything_calculator/main.dart';
+import 'package:everything_calculator/calculations_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:expressions/expressions.dart';
 import 'package:flutter/scheduler.dart';
