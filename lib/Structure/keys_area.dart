@@ -264,34 +264,12 @@ class KeysArea extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: KeyButton(
-                            callback: (keyValue) {
-                              data.enterInput(keyValue);
-                            },
-                            keyValue: "(",
-                            child: const Text("("),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: KeyButton(
-                            callback: (keyValue) {
-                              data.enterInput(keyValue);
-                            },
-                            keyValue: ")",
-                            child: const Text(")"),
-                          ),
-                        ),
-                      ),
-                    ],
+                  child: KeyButton(
+                    callback: (keyValue) {
+                      data.enterInput(keyValue);
+                    },
+                    keyValue: "a",
+                    child: const Text("ans"),
                   ),
                 ),
               ),
@@ -315,14 +293,74 @@ class KeysArea extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: KeyButton(
+                          callback: (keyValue) {
+                            data.moveFocus(keyValue);
+                          },
+                          keyValue: "up",
+                          child: const Text("↑"),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: KeyButton(
+                          callback: (keyValue) {
+                            data.moveFocus(keyValue);
+                          },
+                          keyValue: "down",
+                          child: const Text("↓"),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: KeyButton(
+                          callback: (keyValue) {
+                            data.moveCursor(keyValue);
+                          },
+                          keyValue: "left",
+                          child: const Text("←"),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: KeyButton(
+                          callback: (keyValue) {
+                            data.moveCursor(keyValue);
+                          },
+                          keyValue: "right",
+                          child: const Text("→"),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: KeyButton(
                     callback: (keyValue) {
-                      data.moveFocus(keyValue);
+                      data.enterInput(keyValue);
                     },
-                    keyValue: "up",
-                    child: const Text("↑"),
+                    keyValue: "(",
+                    child: const Text("("),
                   ),
                 ),
               ),
@@ -331,34 +369,10 @@ class KeysArea extends StatelessWidget {
                   padding: const EdgeInsets.all(2.0),
                   child: KeyButton(
                     callback: (keyValue) {
-                      data.moveFocus(keyValue);
+                      data.enterInput(keyValue);
                     },
-                    keyValue: "down",
-                    child: const Text("↓"),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: KeyButton(
-                    callback: (keyValue) {
-                      data.moveCursor(keyValue);
-                    },
-                    keyValue: "left",
-                    child: const Text("←"),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: KeyButton(
-                    callback: (keyValue) {
-                      data.moveCursor(keyValue);
-                    },
-                    keyValue: "right",
-                    child: const Text("→"),
+                    keyValue: ")",
+                    child: const Text(")"),
                   ),
                 ),
               ),

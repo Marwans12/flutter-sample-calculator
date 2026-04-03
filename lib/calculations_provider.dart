@@ -1,7 +1,10 @@
 import 'package:everything_calculator/components/calculation_unit.dart';
+import 'package:expressions/expressions.dart';
 import 'package:flutter/material.dart';
 
 class Calculations extends ChangeNotifier {
+  final evaluator = const ExpressionEvaluator();
+  final results = [];
   final controllers = <CalculationUnit, TextEditingController>{};
   final focusNodes = <CalculationUnit, FocusNode>{};
   final calculationHistory = <CalculationUnit>[];
@@ -24,30 +27,65 @@ class Calculations extends ChangeNotifier {
       controller: controller,
       focusNode: focusNode,
     );
+
     controllers[calculationUnit] = controller;
     focusNodes[calculationUnit] = focusNode;
     if (calculationHistory.isEmpty) {
       calculationHistory.add(calculationUnit);
+      results.add(null);
     } else {
-      calculationHistory.insert(
-          calculationHistory.indexOf(lastFocusedUnit!) + 1, calculationUnit);
+      var insertionIndex = calculationHistory.indexOf(lastFocusedUnit!) + 1;
+      calculationHistory.insert(insertionIndex, calculationUnit);
+      results.insert(insertionIndex, null);
+    }
+    controller.addListener(() {
+      calculate(calculationUnit);
+    });
+
+    notifyListeners();
+  }
+
+  void calculate(CalculationUnit calculationUnit) {
+    var unitIndex = calculationHistory.indexOf(calculationUnit);
+    CalculationUnit currUnit;
+    int prevIndex;
+    dynamic prevResult;
+    dynamic result;
+    TextEditingController controller;
+    Expression expression;
+    for (int currIndex = unitIndex;
+        currIndex < calculationHistory.length;
+        currIndex++) {
+      currUnit = calculationHistory[currIndex];
+      controller = controllers[currUnit]!;
+      prevIndex = currIndex - 1;
+      prevResult = prevIndex == -1 ? null : results[prevIndex];
+      if (controller.text.isNotEmpty) {
+        try {
+          expression = Expression.parse(controller.text);
+          result = evaluator.eval(expression, {"a": prevResult});
+        } catch (e) {
+          result = null;
+        }
+      } else {
+        result = "";
+      }
+      results[currIndex] = result;
     }
     notifyListeners();
   }
 
-  void removeCalculationUnit(CalculationUnit item) {
+  void removeCalculationUnit(CalculationUnit calculationUnit) {
     if (calculationHistory.length == 1) {
       return;
     }
-
-    var itemIndex = calculationHistory.indexOf(item);
-    if (calculationHistory.remove(item) != true) {
-      throw Exception("Attempt to remove non existing calc unit");
-    }
-    controllers[item]!.dispose();
-    focusNodes[item]!.dispose();
-    controllers.remove(item);
-    focusNodes.remove(item);
+    var itemIndex = calculationHistory.indexOf(calculationUnit);
+    calculationHistory.removeAt(itemIndex);
+    results.removeAt(itemIndex);
+    controllers[calculationUnit]!.dispose();
+    focusNodes[calculationUnit]!.dispose();
+    controllers.remove(calculationUnit);
+    focusNodes.remove(calculationUnit);
     if (itemIndex == 0) {
       focusNodes[calculationHistory[0]]!.requestFocus();
     } else {
@@ -97,6 +135,7 @@ class Calculations extends ChangeNotifier {
 
   void clearHistory() {
     calculationHistory.clear();
+    results.clear();
     controllers.values.map((controller) => controller.dispose());
     focusNodes.values.map((focusNode) => focusNode.dispose());
     addCalculationUnit();
@@ -136,12 +175,10 @@ class Calculations extends ChangeNotifier {
     var index = calculationHistory.indexOf(lastFocusedUnit!);
     if (direction == 'up' && index != 0) {
       focusNodes[calculationHistory[index - 1]]!.requestFocus();
-    }
-    else if (direction == 'down' && index != calculationHistory.length - 1) {
+    } else if (direction == 'down' && index != calculationHistory.length - 1) {
       focusNodes[calculationHistory[index + 1]]!.requestFocus();
     } else {
       focusNodes[lastFocusedUnit]!.requestFocus();
     }
-
   }
 }

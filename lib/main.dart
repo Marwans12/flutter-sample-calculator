@@ -16,18 +16,23 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData.dark(),
         home: Scaffold(
-          appBar: AppBar(title: const Text("Calculator"),),
+            appBar: AppBar(
+              title: const Text("Calculator"),
+            ),
             body: Container(
-          color: const Color.fromARGB(255, 49, 49, 49),
-          child: Center(
-              child: ChangeNotifierProvider(
-            create: (context) => Calculations(),
-            child: const Column(children: [
-              Expanded(child: TypingArea()),
-              Expanded(child: KeysArea()),
-            ]),
-          )),
-        )));
+              color: const Color.fromARGB(255, 49, 49, 49),
+              child: Center(
+                  child: ChangeNotifierProvider(
+                create: (context) => Calculations(),
+                child: const Column(children: [
+                  Expanded(
+                    flex: 2,
+                    child: TypingArea(),
+                  ),
+                  Expanded(child: KeysArea()),
+                ]),
+              )),
+            )));
   }
 }
 
